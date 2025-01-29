@@ -1,0 +1,6 @@
+{
+    "sqlInstanceName": "DC01.corp.com",
+    "sqlLogin": "TestLogin",
+    "sqlPassword": "my-complex-pwd"
+}
+  
