@@ -7,19 +7,19 @@ FROM ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/powershell-runtime:la
 FROM ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/powershell-modules-aws-tools:latest AS module-aws-tools
 FROM ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/powershell-modules-sqlserver:latest AS module-sqlserver-files
 
-## Build final image
+# Build final image
 FROM public.ecr.aws/lambda/provided:al2023
 
-## Copy PowerShell runtime files
+# Copy PowerShell runtime files
 COPY --from=runtime-files . /
-## Copy Module files
+# Copy Module files
 COPY --from=module-aws-tools . /
 COPY --from=module-sqlserver-files . /
 
-## Function files
+# Function files
 COPY /function/ /var/task
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-ENV KRB5CCNAME=/tmp/krb5cc_ticket
+#ENV KRB5CCNAME=/tmp/krb5cc_ticket
 
 WORKDIR /var/task
 ENTRYPOINT [ "/var/runtime/bootstrap" ]

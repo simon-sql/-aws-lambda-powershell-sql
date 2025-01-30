@@ -39,12 +39,12 @@ function handler {
             throw "Password not provided in Lambda input."
         }
 
-        $sqlQuery = 'SELECT @@SERVERNAME AS [server_name]'
-        $connectionString = "Server=$sqlInstanceName;Trusted_Connection=no;User Id=sqlLogin;Password=sqlPassword;Trust Server Certificate=true;"
+        $sqlQuery = 'SELECT [name] AS [database_name] from sys.databases'
+        $connectionString = "Server=$sqlInstanceName;Trusted_Connection=no;User Id=$sqlLogin;Password=$sqlPassword;Trust Server Certificate=true;"
 
         # Execute SQL Command
-        $queryResult = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlQuery | ConvertTo-Json
-        Write-Output $queryResult
+        $queryResult = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlQuery | Select-Object database_name
+        Write-Output $queryResult | ConvertTo-Json
     } catch {
         $errorMessage = "An error occurred while executing the SQL command: $($_.Exception.Message)"
         Write-Output $errorMessage | ConvertTo-Json
