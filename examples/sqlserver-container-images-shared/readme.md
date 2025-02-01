@@ -4,7 +4,7 @@ Demo application to deploy a PowerShell Lambda function using existing [containe
 
 The build process initially creates three base image layers which makes it easier to share these base layers with multiple functions:
 
-1. PowerShell custom runtime based on ````provided.al2023````. This downloads the specified version of [PowerShell](https://github.com/PowerShell/PowerShell/releases/) and adds the custom runtime files from the [PowerShell-runtime](../../powershell-runtime/) folder.
+1. PowerShell custom runtime based on ````provided.al2023````. This downloads the specified version of [PowerShell](https://github.com/PowerShell/PowerShell/releases/) and adds the custom runtime files from the [PowerShell-runtime](../powershell-runtime/) folder.
 
 2. The [AWSTools for PowerShell](https://aws.amazon.com/powershell/) with the entire AWS SDK. You can amend the loaded modules within the Dockerfile to only include specific modules. AWS.Tools.Common is required
 
